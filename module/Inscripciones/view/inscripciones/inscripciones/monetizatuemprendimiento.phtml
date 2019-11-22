@@ -1,0 +1,201 @@
+<?php
+$this->headScript()->appendFile($this->basepath('/js/vendor/jquery-validation-1.19.0/jquery.validate.min.js'));
+$this->headScript()->appendFile($this->basepath('/js/vendor/jquery-validation-1.19.0/additional-methods.min.js'));
+$this->headScript()->appendFile($this->basepath('/js/vendor/jquery-validation-1.19.0/localization/messages_es.min.js'));
+$this->headScript()->appendFile($this->basepath('/js/inscripciones/main.js'));
+$this->headScript()->appendFile('/js/inscripciones/main.js');
+?>
+<style>
+    .error{
+        color: red;
+    }
+</style>
+<div class="py-0">
+            
+     
+   <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 p-0" style="background: url('<?php echo $this->basepath('/img/molinos.png') ?>') no-repeat; width: 100%; background-size:cover; text-align:center; padding: 30px; height: 210px;">
+                  <div class="d-block p-2" style="text-align: center; color: #fff; padding-top: 50px !important">
+                    <h1 class="mb-1" style="font-size: 48px;">Inscripción</h1>
+                    <h3 class="">Capacitación "Vive de tus sueños, monetiza tu emprendimiento"</h3>
+                  </div>
+      
+            </div>
+    </div>
+</div>
+
+                  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<?php echo $this->basepath('/monetizatuemprendimiento') ?>">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="<?php echo $this->basepath('/monetizatuemprendimiento') ?>">Capacitación "Vive de tus sueños, monetiza tu emprendimiento"</a></li>
+    <li class="breadcrumb-item active">Inscripción</li>
+  </ol>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+          
+          <?php if($this->success == 1){ ?>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Muy bien!</strong> Se ha inscrito correctamente al evento seleccionado.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div style="height: 400px">
+                    <h2>Completar inscripción</h2>
+                    <p>Gracias por inscribirse al evento<strong>Capacitación "Vive de tus sueños, monetiza tu emprendimiento"</strong>. Hemos enviado un correo de verificación a la dirección de correo proporcionada. Revise su bandeja de entrada para verificar su inscripción al evento.</p>
+                    <a href="<?php $this->basepath('/monetizatuemprendimiento') ?>" class="btn btn-primary">Continuar</a>
+                    <br/><br/><br/>
+                    <h2>Realizar pago de inscripción</h2>
+                    <p>Puede realizar el pago a través de consignación en la cuenta corriente de Bancolombía No. 091000610-11 a nombre de FENALCO CÓRDOBA, 
+                        Nit #891000610-6 y envíar comprobante de pago escaneado a monetizatuemprendimiento@linkeventt.com o llamar al 3006940366 para 
+                        solicitar envío de boletas a domicilio sin costo adicional.</p>
+                  
+                    <p>Su inscripción quedará activada una vez comprobado su pago. Recuerde que tiene un plazo de 5 días a partir de este momento para efectuar su pago.</p>
+                </div>
+              
+          <?php } ?>
+          <?php if($this->fail == 1){ ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> No se pudo realizar la inscripción. Intente nuevamente.<br/>
+                <?php
+                $out = implode("&",array_map(function($a) {return implode("~",$a);},$this->error_messages));
+                 print_r($out);
+                 ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <div style="display:none">
+                <?php
+                $out = implode("&",array_map(function($a) {return implode("~",$a);},$this->error_messages));
+                 print_r($out);
+                 ?>
+            </div>
+       <?php } ?>
+        </div>
+           <br/>
+           <?php if($this->fail == 1 || $this->default == 1){ ?>
+          <div class="col-sm-6">
+              <form id="form-inscripcion" class="p-3" action="<?php echo $this->basepath('/inscripciones/monetizatuemprendimiento') ?>" method="post">
+              <input type="hidden" name="evento_id" id="evento_id" value="2" />
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres" value="<?php echo ($this->formdata['nombres'] != '' ? $this->formdata['nombres'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="<?php echo ($this->formdata['apellidos'] != '' ? $this->formdata['apellidos'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <select id="tipodoc" name="tipodoc" class="form-control">
+                  <?php foreach($this->tiposdocumento as $k => $t){
+                      if ($this->formdata['tipodoc'] == $t->id){?>
+                  <option selected="" value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } else {
+                      if ($k == 0){?>
+                  <option selected="" value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } else { ?>      
+                  <option value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } ?>              
+                  <?php } ?>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-9">
+                <input type="text" class="form-control" id="nrodoc" name="nrodoc" placeholder="No. de documento de identidad" value="<?php echo ($this->formdata['nrodoc'] != '' ? $this->formdata['nrodoc'] : '') ?>" >
+              </div>
+              <div class="form-group col-md-12">
+                <select id="genero" name="genero" class="form-control">
+                <?php if ($this->formdata['genero'] != ''){?>
+                    <option value="M" <?php echo $this->formdata['genero'] == 'M' ? 'selected' : '' ?>>Mujer</option>
+                    <option value="H" <?php echo $this->formdata['genero'] == 'H' ? 'selected' : '' ?>>Hombre</option>
+                    <option value="O" <?php echo $this->formdata['genero'] == 'O' ? 'selected' : '' ?>>Otro</option>
+                <?php } else { ?> 
+                  <option selected="" value="Seleccione el género...">Seleccione el género...</option>
+                  <option value="M">Mujer</option>
+                  <option value="H">Hombre</option>
+                  <option value="O">Otro</option>
+                <?php } ?>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono/celular" value="<?php echo ($this->formdata['telefono'] != '' ? $this->formdata['telefono'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Ocupación/profesión" value="<?php echo ($this->formdata['ocupacion'] != '' ? $this->formdata['ocupacion'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" value="<?php echo ($this->formdata['ciudad'] != '' ? $this->formdata['ciudad'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Nombre de empresa o emprendimiento" value="<?php echo ($this->formdata['empresa'] != '' ? $this->formdata['empresa'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo" value="<?php echo ($this->formdata['cargo'] != '' ? $this->formdata['cargo'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                  <select id="categoria" name="categoria" class="form-control">
+                      <option selected="" value="Seleccione la categoría...">Seleccione una categoría para su empresa o emprendimiento...</option>
+                 <?php foreach($this->categorias as $ci => $cat){
+                   
+                      if ($this->formdata['categoria'] == $cat['id']){?>
+                  <option selected="" value="<?php echo $cat['id']?>"><?php echo $cat['nombre_categoria']?></option>
+                  <?php } 
+                       else { ?>      
+                  <option value="<?php echo $cat['id']?>"><?php echo $cat['nombre_categoria']?></option>
+                  <?php  ?>              
+                  <?php } ?>
+                  <?php } ?>
+                  </select>
+              </div>
+            </div>
+            <p><b> Datos para la creación de tu cuenta </b></p>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Correo electrónico" value="<?php echo ($this->formdata['email'] != '' ? $this->formdata['email'] : '') ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="email2" name="email2" placeholder="Confirmar correo" value="<?php echo ($this->formdata['email2'] != '' ? $this->formdata['email2'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="aceptaterminos" name="aceptaterminos" <?php echo ($this->formdata['aceptaterminos'] == 'on' ? 'checked' : '') ?>>
+                  <label class="form-check-label" for="aceptaterminos"> Acepto los <a href="#">Términos y Condiciones</a> del servicio. </label>
+                </div>
+              </div>
+              <div class="form-group col-md-12">
+                <button type="submit" id="inscribirme" class="btn btn-primary btn-lg">Inscribirme</button>
+                &nbsp;&nbsp;&nbsp;
+                <a href="<?php echo $this->basepath('/foroenergia')?>" class="btn btn-outline-primary btn-lg">< Volver al evento</a>
+              </div>
+            </div>
+          </form>
+          
+          
+        </div>
+          <div class="col-sm-6">
+              <h2>Inversión: $60.000
+              <h3>Formas de pago</h3>
+              <p>Cuenta corriente de <b>Bancolombia</b> No.<b>091000610-11</b><br/>
+                  A nombre de <b>FENALCO CÓRDOBA</b><br/> 
+                  Nit: <b>891000610-6</b></p>
+              <p>Más información:<br/>
+              <b>Teléfono:</b> 3006940366<br/>
+              <b>Email:</b> comercialcordoba@fenalco.com.co</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15773.299014752864!2d-75.8842313!3d8.7554837!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1d84abcab428acb4!2sPolic%C3%ADa+Metropolitana+de+Monter%C3%ADa!5e0!3m2!1ses-419!2sco!4v1563143704397!5m2!1ses-419!2sco" height="400" frameborder="0" style="border:0;width:100%" allowfullscreen></iframe>
+              <h2 style="font-size: 20px">Sede del evento: <span style="font-weight:bold">Auditorio Policía Nacional</span> de la ciudad de <span style="font-weight:bold">Montería-Córdoba</span>, Fecha <span style="font-weight:bold">27 de julio</span>.</h2>
+          </div>
+           <?php } ?>
+      </div>
+    </div>
+  </div>

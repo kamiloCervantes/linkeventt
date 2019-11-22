@@ -1,0 +1,78 @@
+<style>
+    .pagination li{
+        padding-left: 5px;
+        cursor: pointer;
+    }
+</style>
+<div class="section__content section__content--p30">
+                    <div class="container-fluid">                     
+                     
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <?php if($this->rol == 1){ ?>
+                                <h2>Bienvenido al 4to Foro de Energías Renovables</h2>
+                                <br/><br/>
+                                <p>Recuerde los métodos de pago disponibles:</p>
+                                <br/>
+                                <ul style="padding: 20px">
+                                    <li>
+                                        Realizar el pago a través de PayU haciendo click en el siguiente botón:
+                                        <br/><a href="https://biz.payulatam.com/B0c3d99F00D3B9E" target="_blank"><img src="http://www.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>                                    
+                                    </li>
+                                    <li>
+                                        Consigna $50.000 en la cuenta de ahorros No.68100024482 de Bancolombia a nombre de Sinergia Proyectos Sostenibles
+                                        Nit: 890903938 y enviar copia del comprobante de pago a soporte@linkeventt.com.
+                                    </li>
+                                </ul>
+                                <br/><br/>
+                                <h4>Una vez realizado el pago podrá acceder a las entradas del evento en la opción ENTRADAS del menú</h4>
+                                <?php } else { ?>
+                               
+                                <h2 class="title-1 m-b-25">Inscritos al evento <a target="_blank" href="<?php echo $this->basepath('/dashboard/reporteinscritos') ?>" class="btn btn-primary">Descargar</a></h2>
+                                <div class="table-responsive table--no-card m-b-40">
+                                    <table class="table table-striped" id='grid'>
+                                        <thead>
+                                            <tr>
+                                                <th data-column-id='nombres' data-identifier='nombres'>nombres</th>
+                                                <th data-column-id='apellidos' data-identifier='apellidos'>apellidos</th>
+                                                <th data-column-id='telefono' data-identifier='telefono'>telefono</th>
+                                                <th data-column-id='email' data-identifier='email'>email</th>
+                                                <th data-column-id='empresa' data-identifier='empresa'>empresa</th>
+                                                <th data-column-id='ciudad' data-identifier='ciudad'>ciudad</th>
+                                                <th data-column-id='cargo' data-identifier='cargo'>cargo</th>
+                                                <th data-column-id='fecha_inscripcion' data-identifier='fecha_inscripcion'>fecha inscripción</th>                                             
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach($this->inscritos as $i) { ?>
+                                            <tr>
+                                                <td><?php echo strtoupper($i['nombres']) ?></td>
+                                                <td><?php echo strtoupper($i['apellidos']) ?></td>
+                                                <td><?php echo $i['telefono'] ?></td>
+                                                <td><?php echo strtolower($i['email']) ?></td>
+                                                <td><?php echo $i['empresa'] ?></td>
+                                                <td><?php echo $i['ciudad'] ?></td>
+                                                <td><?php echo $i['cargo'] ?></td>
+                                                <td><?php echo $i['fecha_inscripcion'] ?></td>
+                                              
+                                            </tr>
+                                            <?php } ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                 <?php } ?>
+                            </div>
+     
+                        </div>
+<!--                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2019 Linkeventt. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+
+<?php $this->headScript()->appendFile($this->basepath('js/inscritos/inscritos_main.js')); ?>

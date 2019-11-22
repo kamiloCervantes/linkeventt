@@ -1,0 +1,118 @@
+<div class="py-0">
+     <div class="d-block p-2" style="text-align: center">
+      <h1 class="mb-1">4to Foro Internacional de Energías Renovables</h1>
+      <h3 class=""> 30 y 31 de mayo de 2019 </h3>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          
+          <?php if($this->success == 1){ ?>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Muy bien!</strong> Se ha inscrito correctamente al evento seleccionado.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div style="height: 300px">
+                    <h2>Completar inscripción</h2>
+                    <p>Gracias por inscribirse al <strong>4to Foro Internacional de Energías Renovables</strong>. Hemos enviado un correo de verificación a la dirección de correo proporcionada. Revise su bandeja de entrada para verificar su inscripción al evento.</p>
+                    <a href="<?php $this->basepath('/') ?>" class="btn btn-primary">Continuar</a>
+                </div>
+              
+          <?php } ?>
+          <?php if($this->fail == 1){ ?>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> No se pudo realizar la inscripción. Intente nuevamente.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+       <?php } ?>
+              <form id="form-inscripcion" class="p-3" action="<?php echo $this->basepath('/inscripciones/registro') ?>" method="post">
+              <input type="hidden" name="evento_id" id="evento_id" value="1" />
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres" value="<?php echo ($this->formdata['nombres'] != '' ? $this->formdata['nombres'] : '') ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="<?php echo ($this->formdata['apellidos'] != '' ? $this->formdata['apellidos'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-1">
+                <select id="tipodoc" name="tipodoc" class="form-control">
+                  <?php foreach($this->tiposdocumento as $k => $t){
+                      if ($this->formdata['tipodoc'] == $t->id){?>
+                  <option selected="" value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } else {
+                      if ($k == 0){?>
+                  <option selected="" value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } else { ?>      
+                  <option value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } ?>              
+                  <?php } ?>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="text" class="form-control" id="nrodoc" name="nrodoc" placeholder="No. de documento de identidad" value="<?php echo ($this->formdata['nrodoc'] != '' ? $this->formdata['nrodoc'] : '') ?>" >
+              </div>
+              <div class="form-group col-md-6">
+                <select id="genero" name="genero" class="form-control">
+                <?php if ($this->formdata['genero'] != ''){?>
+                    <option value="M" <?php echo $this->formdata['genero'] == 'M' ? 'selected' : '' ?>>Mujer</option>
+                    <option value="H" <?php echo $this->formdata['genero'] == 'H' ? 'selected' : '' ?>>Hombre</option>
+                    <option value="O" <?php echo $this->formdata['genero'] == 'O' ? 'selected' : '' ?>>Otro</option>
+                <?php } else { ?> 
+                  <option selected="" value="Seleccione el género...">Seleccione el género...</option>
+                  <option value="M">Mujer</option>
+                  <option value="H">Hombre</option>
+                  <option value="O">Otro</option>
+                <?php } ?>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono/celular" value="<?php echo ($this->formdata['telefono'] != '' ? $this->formdata['telefono'] : '') ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Ocupación/profesión" value="<?php echo ($this->formdata['ocupacion'] != '' ? $this->formdata['ocupacion'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa/institución" value="<?php echo ($this->formdata['empresa'] != '' ? $this->formdata['empresa'] : '') ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo" value="<?php echo ($this->formdata['cargo'] != '' ? $this->formdata['cargo'] : '') ?>">
+              </div>
+            </div>
+            <p><b> Datos para la creación de tu cuenta </b></p>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Correo electrónico" value="<?php echo ($this->formdata['email'] != '' ? $this->formdata['email'] : '') ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="email2" name="email2" placeholder="Confirmar correo" value="<?php echo ($this->formdata['email2'] != '' ? $this->formdata['email2'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="aceptaterminos" name="aceptaterminos" <?php echo ($this->formdata['aceptaterminos'] == 'on' ? 'checked' : '') ?>>
+                  <label class="form-check-label" for="aceptaterminos"> Acepto los <a href="#">Términos y Condiciones</a> del servicio. </label>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary float-right">Inscribirme</button>
+              </div>
+            </div>
+          </form>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>

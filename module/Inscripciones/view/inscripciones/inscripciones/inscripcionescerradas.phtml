@@ -1,0 +1,156 @@
+<?php
+$this->headScript()->appendFile($this->basepath('/js/vendor/jquery-validation-1.19.0/jquery.validate.min.js'));
+$this->headScript()->appendFile($this->basepath('/js/vendor/jquery-validation-1.19.0/additional-methods.min.js'));
+$this->headScript()->appendFile($this->basepath('/js/vendor/jquery-validation-1.19.0/localization/messages_es.min.js'));
+$this->headScript()->appendFile($this->basepath('/js/inscripciones/main.js'));
+$this->headScript()->appendFile('/js/inscripciones/main.js');
+?>
+<style>
+    .error{
+        color: red;
+    }
+</style>
+<div class="py-0">
+            
+     
+   <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 p-0" style="background: url('<?php echo $this->basepath('/img/molinos.png') ?>') no-repeat; width: 100%; background-size:cover; text-align:center; padding: 30px; height: 210px;">
+                  <div class="d-block p-2" style="text-align: center; color: #fff; padding-top: 50px !important">
+                    <h1 class="mb-1" style="font-size: 48px;">Inscripción</h1>
+                    <h3 class="">4to Foro Internacional de Energías Renovables</h3>
+                  </div>
+      
+            </div>
+    </div>
+</div>
+
+                  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<?php echo $this->basepath('/') ?>">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="<?php echo $this->basepath('/') ?>">4to Foro Internacional de Energías Renovables</a></li>
+    <li class="breadcrumb-item active">Inscripción</li>
+  </ol>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+          
+         
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Atención!</strong> Las inscripciones a este evento están cerradas! Muchas gracias!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+        </div>
+           <br/>
+
+          <div class="col-sm-6">
+              <form id="form-inscripcion" class="p-3" method="post">
+              <input type="hidden" name="evento_id" id="evento_id" value="1" />
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres" value="<?php echo ($this->formdata['nombres'] != '' ? $this->formdata['nombres'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="<?php echo ($this->formdata['apellidos'] != '' ? $this->formdata['apellidos'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <select id="tipodoc" name="tipodoc" class="form-control">
+                  <?php foreach($this->tiposdocumento as $k => $t){
+                      if ($this->formdata['tipodoc'] == $t->id){?>
+                  <option selected="" value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } else {
+                      if ($k == 0){?>
+                  <option selected="" value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } else { ?>      
+                  <option value="<?php echo $t->id?>"><?php echo $t->tipo_documento?></option>
+                  <?php } ?>              
+                  <?php } ?>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-9">
+                <input type="text" class="form-control" id="nrodoc" name="nrodoc" placeholder="No. de documento de identidad" value="<?php echo ($this->formdata['nrodoc'] != '' ? $this->formdata['nrodoc'] : '') ?>" >
+              </div>
+              <div class="form-group col-md-12">
+                <select id="genero" name="genero" class="form-control">
+                <?php if ($this->formdata['genero'] != ''){?>
+                    <option value="M" <?php echo $this->formdata['genero'] == 'M' ? 'selected' : '' ?>>Mujer</option>
+                    <option value="H" <?php echo $this->formdata['genero'] == 'H' ? 'selected' : '' ?>>Hombre</option>
+                    <option value="O" <?php echo $this->formdata['genero'] == 'O' ? 'selected' : '' ?>>Otro</option>
+                <?php } else { ?> 
+                  <option selected="" value="Seleccione el género...">Seleccione el género...</option>
+                  <option value="M">Mujer</option>
+                  <option value="H">Hombre</option>
+                  <option value="O">Otro</option>
+                <?php } ?>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono/celular" value="<?php echo ($this->formdata['telefono'] != '' ? $this->formdata['telefono'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Ocupación/profesión" value="<?php echo ($this->formdata['ocupacion'] != '' ? $this->formdata['ocupacion'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" value="<?php echo ($this->formdata['ciudad'] != '' ? $this->formdata['ciudad'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa/institución" value="<?php echo ($this->formdata['empresa'] != '' ? $this->formdata['empresa'] : '') ?>">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Cargo" value="<?php echo ($this->formdata['cargo'] != '' ? $this->formdata['cargo'] : '') ?>">
+              </div>
+            </div>
+            <p><b> Datos para la creación de tu cuenta </b></p>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Correo electrónico" value="<?php echo ($this->formdata['email'] != '' ? $this->formdata['email'] : '') ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" id="email2" name="email2" placeholder="Confirmar correo" value="<?php echo ($this->formdata['email2'] != '' ? $this->formdata['email2'] : '') ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="aceptaterminos" name="aceptaterminos" <?php echo ($this->formdata['aceptaterminos'] == 'on' ? 'checked' : '') ?>>
+                  <label class="form-check-label" for="aceptaterminos"> Acepto los <a href="#">Términos y Condiciones</a> del servicio. </label>
+                </div>
+              </div>
+              <div class="form-group col-md-12">
+
+                <a href="<?php echo $this->basepath('/foroenergia')?>" class="btn btn-outline-primary btn-lg">< Volver al evento</a>
+              </div>
+            </div>
+          </form>
+          
+          
+        </div>
+          <div class="col-sm-6">
+              <h2>Inversión: $50.000
+              <a href="https://biz.payulatam.com/B0c3d99F00D3B9E" target="_blank"><img src="http://www.payulatam.com/img-secure-2015/boton_pagar_mediano.png"></a>    </h2>                
+              <h3>Otras formas de pago</h3>
+              <p>Cuenta de Ahorros <b>Bancolombia</b> No.<b>68100024482</b><br/>
+                  A nombre de <b>Sinergia Proyectos Sostenibles</b><br/> 
+                  Nit: <b>890903938</b></p>
+              <p>Más información:<br/>
+              <b>Teléfono:</b> 3007864522<br/>
+              <b>Email:</b> foroenergia@linkeventt.com</p>
+              
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.195133916834!2d-76.63669350113256!3d7.8746402942988185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e500dcd76f97f6f%3A0xd779315a91c70fb2!2sCentro+Empresarial+Santa+Mar%C3%ADa.!5e0!3m2!1ses-419!2sco!4v1554093445534!5m2!1ses-419!2sco"  height="400" frameborder="0" style="border:0;width:100%" allowfullscreen></iframe>
+              <h2 style="font-size: 20px">Sede del evento: <span style="font-weight:bold">Auditorio Centro Empresarial Santa María</span> de la ciudad de <span style="font-weight:bold">Apartadó-Antioquia</span>, Fecha <span style="font-weight:bold">30 y 31 de mayo</span>.</h2>
+              <p>Todas las reservas deben ser realizadas directamente via email al siguiente correo: hb047-re@accor.com indicando el código Tarifa ENERGIAR.</p>
+          </div>
+
+      </div>
+    </div>
+  </div>

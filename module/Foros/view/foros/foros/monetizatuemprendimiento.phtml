@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linkeventt</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="<?php echo $this->basepath('css/theme.css') ?>" type="text/css">
+  <link rel="stylesheet" href="<?php echo $this->basepath('js/vendor/flipclock/css/flipclock.css') ?>" type="text/css">
+  <style> 
+    .event-box {
+      position: relative;
+    }
+
+    .event-image {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .event-caption {
+      z-index: 100;
+      position: absolute;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      top: 10px;
+      text-align: center;
+      width: 100%
+    }
+    
+    .event-caption .mobile-caption{
+        position: static;
+        color: #12bbad;
+    }
+    
+    .count-outer{
+        padding: 35px;
+        color: #fff;
+    }
+    
+    .count-text{
+        font-size: 60px;
+    }
+    
+    .counter-title{
+        font-size: 24px;
+    }
+    
+    .list-items{
+        list-style: none;
+        font-size: 30px;
+        line-height: 36pt;
+    }
+    
+    .list-items li{
+        
+    }
+    
+    .followus{
+        margin-top: 25px;
+    }
+    
+    .followus a{
+        font-size: 30px;
+        padding: 6px;
+        
+    }
+    
+    #actividades p{
+        font-size: 28px;
+        padding: 4px;        
+    }
+    
+    .tema1{
+       background: #efc5ca;
+        background: -moz-linear-gradient(top, #efc5ca 0%, #d24b5a 50%, #ba2737 51%, #f18e99 100%);
+        background: -webkit-linear-gradient(top, #efc5ca 0%,#d24b5a 50%,#ba2737 51%,#f18e99 100%);
+        background: linear-gradient(to bottom, #efc5ca 0%,#d24b5a 50%,#ba2737 51%,#f18e99 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efc5ca', endColorstr='#f18e99',GradientType=0 );
+    }
+    
+    .tema2{
+        
+       background: #feccb1;
+background: -moz-linear-gradient(top, #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%);
+background: -webkit-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%);
+background: linear-gradient(to bottom, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feccb1', endColorstr='#fb955e',GradientType=0 );
+
+    }
+    
+    .tema3{
+        
+        background: #b7deed;
+background: -moz-linear-gradient(top, #b7deed 0%, #71ceef 50%, #21b4e2 51%, #b7deed 100%);
+background: -webkit-linear-gradient(top, #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%);
+background: linear-gradient(to bottom, #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed',GradientType=0 );
+   
+    }
+    
+    .tema4{
+        
+        background: #b4e391;
+background: -moz-linear-gradient(top, #b4e391 0%, #61c419 50%, #b4e391 100%);
+background: -webkit-linear-gradient(top, #b4e391 0%,#61c419 50%,#b4e391 100%);
+background: linear-gradient(to bottom, #b4e391 0%,#61c419 50%,#b4e391 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#b4e391',GradientType=0 );
+    
+    }
+    
+    .resp-text{
+        line-height: 1.5; 
+        font-size: 2.1rem;
+    }
+    
+    .resp-text-box{
+          font-size: 1rem;
+    }
+    
+    .countdown-container {
+position: relative;
+top: 50%;
+-webkit-transform: translateY(-50%);
+-moz-transform: translateY(-50%);
+transform: translateY(-50%);
+}
+.clock-item .inner {
+height: 0px;
+padding-bottom: 100%;
+position: relative;
+width: 100%;
+}
+.clock-canvas {
+background-color: rgba(255, 255, 255, .1);
+border-radius: 50%;
+height: 0px;
+padding-bottom: 100%;
+}
+.text {
+color: #fff;
+font-size: 30px;
+font-weight: bold;
+margin-top: -50px;
+position: absolute;
+top: 50%;
+text-align: center;
+text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+width: 100%;
+}
+.text .val {
+font-size: 50px;
+}
+.text .type-time {
+font-size: 20px;
+}
+ @media (min-width: 768px) and (max-width: 991px) {
+.clock-item {
+margin-bottom: 30px;
+}
+}
+ @media (max-width: 767px) {
+.clock-item {
+margin: 0px 30px 30px 30px;
+}
+}
+    
+#logos img{
+    max-height: 200px;
+}
+   
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark d-none d-sm-block" style="background: #fff">
+    <div class="container d-flex justify-content-between"> <a class="navbar-brand" href="#">
+        
+        <img src="<?php echo $this->basepath('img/logo.png') ?>" style="width:200px"> 
+      </a> 
+    <div class="followus">
+            <a href="https://www.facebook.com/linkeventt"><i class="fa fa-facebook-f"></i></a>
+            <a href="https://twitter.com/linkeventt" target='_blank'><i class="fa fa-twitter"></i></a>
+            <a href="https://instagram.com/linkeventt"><i class="fa fa-instagram"></i></a>
+            <br/>
+            <br/>
+        </div>
+    </div>
+  </nav>
+  <nav class="navbar navbar-dark d-block d-sm-none" style="background: #fff">
+    <div class="container d-flex justify-content-center">
+      
+      <a class="navbar-brand" href="#">
+        <img src="<?php echo $this->basepath('img/logo.png') ?>" style="width:200px"> 
+      </a> 
+    <div class="followus">
+            <a href="https://www.facebook.com/linkeventt"><i class="fa fa-facebook-f"></i></a>
+            <a href="https://twitter.com/linkeventt" target='_blank'><i class="fa fa-twitter"></i></a>
+            <a href="https://instagram.com/linkeventt"><i class="fa fa-instagram"></i></a>
+            <br/>
+            <br/>
+        </div>
+    </div>
+  </nav>
+  <div class="">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 p-0" style="">
+          <div class="event-box">
+            <div class="event-img">
+<!--              <img class="img-fluid" src="img/bannerforo.jpg" width="100%">-->
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="4000">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img class="d-none w-100 img-fluid d-sm-block" style="height:579px; width:100%" src="<?php echo $this->basepath('/img/fenalcoartewebcapacitacion.jpg') ?>" alt="4to Foro Internacional de Energías Renovables">
+                    </div>                   
+                    
+                   
+                    
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+            </div>
+            <div class="event-caption d-none d-sm-block">
+<!--              <h1 class="mb-1">4to Foro Internacional de Energías Renovables</h1>
+              <h3 class=""> 30 y 31 de mayo de 2019 </h3>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-0">
+     <div class="d-block d-sm-none p-2" style="text-align: center; font-weight: bold">
+      <h1 class="mb-1">Conferencia "Vive de tus sueños, monetiza tu emprendimiento"</h1>
+      <h3 class=""> 27 de julio de 2019 </h3>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-1">&nbsp;</div>
+        <div class="col-sm-10">
+          <ul class="nav nav-pills nav-fill" style="font-size: 20px; margin-top: 10px">
+            <li class="nav-item"> <a href="" class="nav-link active show" data-toggle="pill" data-target="#tabone">Descripción del evento</a> </li>
+            <li class="nav-item"> <a class="nav-link scroll" href="#tematicas" data-toggle="pill" data-target="#tabthree">Temáticas</a> </li>
+            <li class="nav-item"> <a href="<?php echo $this->basepath('/inscripciones/monetizatuemprendimiento') ?>" class="nav-link">Inscríbete</a> </li>
+            <li class="nav-item"> <a href="<?php echo $this->basepath('/monetizatuemprendimiento/agenda') ?>" class="nav-link">Agenda</a> </li>
+          </ul>
+
+          
+            
+                    <br/><br/>
+                    <div class='row  d-none d-sm-block'>
+                        
+                        <div class='col-sm-12'>
+                            <div style='width:700px; text-align:center; padding: 20px; margin: 0 auto'>
+                                    <div class="clock" style="margin:2em;"></div>
+                                    <div class="message"></div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <br/>
+                                
+
+            <!--                        <p class="text-justify">Foro Empresarial de Innovación y Desarrollo que abarca el mundo de las Energías Renovables, la primera versión de este gran evento nace en el año 2015 y cuenta con un récord de más de 2500 participantes lo que avala su importancia dentro de este tipo de eventos en Colombia, se realiza con el fin de promover la sostenibilidad y propiciar espacios de participación donde los actores responsables como las Empresas, el Gobierno las Universidades y la sociedad contribuyan en el fortalecimiento de la sostenibilidad y uso de energías limpias, apoyados en la base jurídica creada para este objetivo como lo es la Ley 1715,entre otras.</p>-->
+                                <h2 style="text-align: center;" class="animated zoomIn resp-text"><span style="color: #4f2982">Si quieres que tus sueños se conviertan en realidad y vivir de ellos, esta conferencia es para ti... </span><span style="font-weight: bold; color: #330570">"VIVE DE TUS SUEÑOS, MONETIZA TU EMPRENDIMIENTO"</span><br/> 
+                                    <span style="font-style: italic;color: #4f2982"> ¡¡COMPRA YA TUS BOLETAS!! Estamos ubicados en la Calle 24 #13-80 C.C Isla Center Local 1, Montería, Córdoba o llámanos y te las llevamos a domicilio. Info: 300 694 0366</span>
+                                       </h2> 
+                                <br/>
+                                <br/>
+                                <ul class="list-items">
+                                    <li style="color:  #000" class="animated zoomIn delay-2s">
+                                    <i class="fa fa-check" style="color: #00bb3f"></i> Sede del evento: <span style="color:#000;font-weight: bold">Auditorio Comando de la Policía Calle 29 Cra 6ta </span> de la ciudad de               
+                                           <span style="color:#000;font-weight:bold"> Montería-Córdoba</span>, <span style="font-weight: bold; color: #000">Fecha 27 de julio</span>.</li>
+                                    <li style="color:  #000" class="animated zoomIn delay-2s">
+                                        <i class="fa fa-check" style="color: #00bb3f"></i> Inversión: <span style="color:#000;font-weight: bold">$60.000</span>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-lg" style="font-size:32px" href="<?php echo $this->basepath('/inscripciones/monetizatuemprendimiento') ?>">Inscríbete</a></li>
+<!--                                    <li style="color:  #000" class="animated zoomIn delay-2s">
+                                        <i class="fa fa-check" style="color: #00bb3f"></i>
+                                        Reúne al gremio Empresarial y Técnico más importante del país.</li>-->
+                                </ul>
+                                <br/>
+                                <br/>
+                                <h2 style=" color: #4f2982; text-align:center" class="animated zoomIn delay-3s resp-text">
+                                    Jose Joaquín Ramos (<a href="<?php echo $this->basepath('/media/cv1.pdf') ?>" target="_blank">ver CV</a>) y Pipe Santos (<a href="<?php echo $this->basepath('/media/cv2.pdf') ?>" target="_blank">ver CV</a>) serán los expertos nacionales que presentarán nuevos conceptos y recomendaciones a la hora de 
+                                    <span style="font-weight: bold">monetizar su emprendimiento</span>.
+                                </h2>
+                                                      <img class="d-none w-100 img-fluid d-sm-block" style="width:50%" src="<?php echo $this->basepath('/img/conferencistas.jpg') ?>" alt="4to Foro Internacional de Energías Renovables">
+<!--                                <br/>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.1950832201883!2d-76.63669350076819!3d7.874645608140543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e500dcd76f97f6f%3A0xd779315a91c70fb2!2sCentro+Empresarial+Santa+Mar%C3%ADa.!5e0!3m2!1ses-419!2sco!4v1553939996374!5m2!1ses-419!2sco" style="width:100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                <br/>-->
+                                <br/>
+                                <br/>
+                                <section id="tematicas">
+                                <h2 style='font-weight: bold;text-align:center'>Temáticas del evento <a class="btn btn-outline-primary btn-lg" style="font-size:32px" href="<?php echo $this->basepath('/monetizatuemprendimiento/agenda') ?>">Ver más</a></h2>
+                                <div class="row">
+                                    <div class="col-sm-6 p-3 text-white tema1" style="text-align:center">
+                                      <p class="text-center p-4 animate-hover resp-text-box" >Conversatorio sobre ideas de negocio</p>
+                                    </div>
+                                    <div class="col-sm-6 p-4 text-white tema2" style="text-align:center">
+                                      <p class="text-center p-4 animate-hover resp-text-box" style="">Herramientas para el emprendedor de hoy</p>
+                                    </div>
+                                    <div class="col-sm-6 p-4 tema3" style="text-align:center">
+                                      <p class="text-center p-3 text-white animate-hover resp-text-box" style="">Oportunidades del Marketing Digital en Emprendimiento</p>
+                                    </div>
+                                    <div class="col-sm-6 p-4 tema4" style=" text-align:center">
+                                      <p class="text-center p-3 text-white animate-hover resp-text-box">Asesoría personalizada sobre presencia digital</p>
+                                    </div>
+                                  </div>
+                                  
+                                </section>
+                            </div>
+                
+                            
+                      </div>
+                   
+                     
+            <br/><br/>
+            
+            
+                
+              
+            
+             
+
+        </div>
+
+      </div>
+
+        <section id="redessociales" style="text-align:center">
+          <div class="row">
+            <div class="col-sm-1">&nbsp;</div>
+            <div class="col-sm-10">     
+                <br/><br/>
+                <div class="row">                  
+                    <div class="col-md-6">  
+                        <a class="twitter-timeline" data-lang="es" data-height="500" href="https://twitter.com/fenalcocordoba?ref_src=twsrc%5Etfw">Tweets by fenalcocordoba</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                                
+                    </div>                             
+                    <div class="col-md-6">
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffenalcocordobaoficial%2F&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=102651033156897" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>                                
+                    </div>
+                </div>
+                <br/><br/>
+            </div>
+            </div>
+        </section>
+    </div>
+  </div>
+  <div class="py-0">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 bg-dark" style="">
+          <p class="p-3 text-white text-center" >Linkeventt © 2019</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="<?php echo $this->basepath('js/vendor/countUp.min.js') ?>"></script>
+  <script src="<?php echo $this->basepath('js/vendor/countUp-jquery.js') ?>"></script>
+  <script src="<?php echo $this->basepath('js/vendor/smoothscroll.js') ?>"></script>
+  <script src="<?php echo $this->basepath('js/vendor/wow.min.js') ?>"></script>
+  <script src="<?php echo $this->basepath('js/vendor/flipclock/js/flipclock.min.js') ?>"></script>
+  <script src="<?php echo $this->basepath('js/monetizatuemprendimiento.js') ?>"></script>
+  
+</body>
+
+</html>

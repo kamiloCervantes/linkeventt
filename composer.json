@@ -1,0 +1,6 @@
+{
+    "require": {
+        "endroid/qr-code": "^3.5",
+        "tecnickcom/tc-lib-barcode": "1.15"
+    }
+}
